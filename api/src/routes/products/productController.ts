@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 export const createProduct = (req: Request, res: Response) => {
   res.send("created");
+  console.log(req.body);
 };
 
 export const listProducts = (req: Request, res: Response) => {
