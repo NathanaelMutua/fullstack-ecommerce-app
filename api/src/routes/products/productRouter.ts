@@ -1,15 +1,22 @@
 import { Router, Response, Request } from "express";
+import {
+  createProduct,
+  deleteProduct,
+  getProductById,
+  listProducts,
+  updateProduct,
+} from "./productController";
 
-export const productRouter = Router();
+const productRouter = Router();
 
-productRouter.get("/", (req: Request, res: Response) => {
-  res.send("List of products");
-});
+productRouter.get("/", listProducts);
 
-productRouter.post("/", (req: Request, res: Response) => {
-  res.send("Create New product");
-});
+productRouter.post("/", createProduct);
 
-productRouter.get("/:id", (req: Request, res: Response) => {
-  res.send("Specific product");
-});
+productRouter.get("/:id", getProductById);
+
+productRouter.put("/:id", updateProduct);
+
+productRouter.patch("/:id", deleteProduct); // this will be a soft delete
+
+export default productRouter;

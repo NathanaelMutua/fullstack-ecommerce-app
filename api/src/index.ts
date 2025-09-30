@@ -1,5 +1,5 @@
 import express from "express";
-import { productRouter } from "./routes/products/productRouter";
+import productRouter from "./routes/products/productRouter";
 
 const app = express();
 app.get("/", (_req, res) => {
