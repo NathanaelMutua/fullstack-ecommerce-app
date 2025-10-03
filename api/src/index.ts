@@ -11,7 +11,7 @@ app.get("/", (_req, res) => {
 });
 
 // product endpoints
-app.use("/products", productRouter);
+app.use("/api/products", productRouter);
 
 const port = process.env.PORT || 3000; // uses switch case to 3000 if environment variable is not set
 

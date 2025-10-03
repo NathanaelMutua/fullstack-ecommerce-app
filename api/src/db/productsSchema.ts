@@ -1,9 +1,12 @@
+import { isDriverValueEncoder } from "drizzle-orm";
 import {
   integer,
   pgTable,
   varchar,
   text,
+  boolean,
   doublePrecision,
+  date,
 } from "drizzle-orm/pg-core";
 
 export const productsTable = pgTable("products", {
@@ -12,4 +15,5 @@ export const productsTable = pgTable("products", {
   description: text(),
   image: varchar({ length: 255 }),
   price: doublePrecision().notNull(),
+  isDeleted: boolean().default(false),
 });
