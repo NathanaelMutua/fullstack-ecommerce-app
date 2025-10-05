@@ -5,18 +5,19 @@ import {
   getProductById,
   listProducts,
   updateProduct,
-} from "../../controllers/products/productController";
+} from "../../controllers/productController";
+import { validateData } from "../../middlewares/validationMiddleware";
+import {
+  createProductSchema,
+  updateProductSchema,
+} from "../../db/productsSchema";
 
 const productRouter = Router();
 
 productRouter.get("/", listProducts);
-
-productRouter.post("/", createProduct);
-
+productRouter.post("/", validateData(createProductSchema), createProduct);
 productRouter.get("/:id", getProductById);
-
-productRouter.put("/:id", updateProduct);
-
+productRouter.put("/:id", validateData(updateProductSchema), updateProduct);
 productRouter.patch("/:id", deleteProduct); // this will be a soft delete
 
 export default productRouter;

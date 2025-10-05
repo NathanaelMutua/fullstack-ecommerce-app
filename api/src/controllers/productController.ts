@@ -1,18 +1,19 @@
 import { Request, Response } from "express";
-import { db } from "../../db/index";
-import { productsTable } from "../../db/productsSchema";
+import { db } from "../db/index";
+import { productsTable } from "../db/productsSchema";
 import { eq, and } from "drizzle-orm";
+import _ from "lodash";
 
 // Creating a Product:  Adding it to the Database
 export const createProduct = async (req: Request, res: Response) => {
   try {
     const [product] = await db
       .insert(productsTable)
-      .values(req.body)
+      .values(req.cleanBody)
       .returning();
     res.status(201).json(product);
   } catch (e) {
-    // console.log(e)
+    console.log(e);
     res.status(500).json({ message: "Error: It must be the spaghetti code" });
   }
 };
@@ -105,7 +106,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
 export const updateProduct = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
-    const updatedFields = req.body;
+    const updatedFields = req.cleanBody;
 
     const [updatedProduct] = await db
       .update(productsTable)
