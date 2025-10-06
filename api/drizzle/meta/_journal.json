@@ -15,6 +15,13 @@
       "when": 1759381844383,
       "tag": "0001_ancient_morbius",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1759691568763,
+      "tag": "0002_broad_giant_man",
+      "breakpoints": true
     }
   ]
 }
