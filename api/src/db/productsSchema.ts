@@ -1,4 +1,3 @@
-import { isDriverValueEncoder } from "drizzle-orm";
 import {
   integer,
   pgTable,
@@ -6,7 +5,6 @@ import {
   text,
   boolean,
   doublePrecision,
-  date,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 
