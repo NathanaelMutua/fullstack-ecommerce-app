@@ -1,6 +1,7 @@
 import express, { urlencoded } from "express";
 import productRouter from "./routes/products/productRouter.js";
 import authRouter from "./routes/authentication/authRouter.js";
+import ordersRouter from "./routes/orders/ordersRouter.js";
 
 const app = express();
 
@@ -11,11 +12,14 @@ app.get("/", (_req, res) => {
   res.send(`<h1>E-Commerce API</h1>`);
 });
 
+// authentication router
+app.use("/api/auth", authRouter);
+
 // product router
 app.use("/api/products", productRouter);
 
-// authentication router
-app.use("/api/auth", authRouter);
+// order router
+app.use("/api/orders", ordersRouter);
 
 const port = process.env.PORT || 3000; // uses switch case to 3000 if environment variable is not set
 
