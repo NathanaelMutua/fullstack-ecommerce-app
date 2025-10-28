@@ -6,7 +6,6 @@ export const verifyToken = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("=== verifyToken called ===");
   const authHeader = req.header("Authorization") || "";
   const token = authHeader.startsWith("Bearer ")
     ? authHeader.slice(7).trim()
@@ -33,7 +32,6 @@ export const verifyToken = async (
 
     req.userId = (decoded as any).userId;
     req.role = (decoded as any).role;
-    console.log("verifyToken OK userId:", req.userId, "role:", req.role);
     next();
   } catch (e: any) {
     const isAuthError =

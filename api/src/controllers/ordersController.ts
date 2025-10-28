@@ -9,9 +9,6 @@ export const createOrder = async (req: Request, res: Response) => {
     const payload = (req as any).cleanBody ?? req.body;
     const userId = (req as any).userId;
 
-    console.log("createOrder payload:", JSON.stringify(payload));
-    console.log("createOrder userId:", userId);
-
     if (!userId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -67,8 +64,52 @@ export const createOrder = async (req: Request, res: Response) => {
       .json({ order: result.orderRow, items: result.itemRows });
   } catch (e: any) {
     // console.log(e);
-    return res
-      .status(500)
-      .json({ error: "Internal Server Error", message: e?.message });
+    return res.status(500).json({
+      error: "Whoops! Must be that spaghetti code",
+      message: e?.message,
+    });
   }
 };
+
+// if req.role is admin, list all orders
+// if req.role is seller, list all orders for the seller
+// if req.role is user, list all orders for the user based on the userId
+export async function listOrders(req: Request, res: Response) {
+  try {
+    const orders = await db.select().from(ordersTable);
+    return res.status(200).json(orders);
+  } catch (e: any) {
+    return res.status(500).json({
+      error: "Whoops! Must be that spaghetti code",
+      message: e?.message,
+    });
+  }
+}
+
+export async function getOrder(req: Request, res: Response) {
+  try {
+    const id = parseInt(req.params.id);
+
+    const orderWithItems = await db
+      .select()
+      .from(ordersTable)
+      .where(eq(ordersTable.id, id))
+      .leftJoin(orderItemsTable, eq(ordersTable.id, orderItemsTable.orderId));
+
+    if (orderWithItems.length === 0) {
+      return res.status(404).json({ error: "Order not found" });
+    } else {
+      const mergedOrder = {
+        ...orderWithItems[0],
+        items: orderWithItems.map((item) => item.order_items),
+      };
+      return res.status(200).json(mergedOrder);
+    }
+  } catch (e: any) {
+    // console.log(e);
+    return res.status(500).json({
+      error: "Whoops! Must be that spaghetti code",
+      message: e?.message,
+    });
+  }
+}
