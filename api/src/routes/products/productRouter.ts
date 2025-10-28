@@ -6,17 +6,17 @@ import {
   listProducts,
   softDeleteProduct,
   updateProduct,
-} from "../../controllers/productController.js";
-import { validateData } from "../../middlewares/validationMiddleware.js";
+} from "../../controllers/productController";
+import { validateData } from "../../middlewares/validationMiddleware";
 import {
   createProductSchema,
   updateProductSchema,
-} from "../../db/productsSchema.js";
+} from "../../db/productsSchema";
 import {
   verifyAdmin,
   verifySeller,
   verifyToken,
-} from "../../middlewares/authMiddleware.js";
+} from "../../middlewares/authMiddleware";
 
 const productRouter = Router();
 

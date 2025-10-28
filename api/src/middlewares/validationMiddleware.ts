@@ -15,6 +15,7 @@ export function validateData(schema: z.ZodObject<any, any>) {
         }));
         res.status(400).json({ error: "Invalid data", details: errorMessages });
       } else {
+        console.error("Validation middleware non-Zod error:", error);
         res.status(500).json({ error: "Internal Server Error" });
       }
     }

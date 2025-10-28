@@ -6,7 +6,11 @@ export const verifyToken = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.header("Authorization");
+  console.log("=== verifyToken called ===");
+  const authHeader = req.header("Authorization") || "";
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.slice(7).trim()
+    : authHeader.trim();
 
   if (!token) {
     res.status(401).json({ error: "Access denied" });
@@ -27,12 +31,16 @@ export const verifyToken = async (
       return;
     }
 
-    req.userId = decoded.userId;
-    req.role = decoded.role;
+    req.userId = (decoded as any).userId;
+    req.role = (decoded as any).role;
+    console.log("verifyToken OK userId:", req.userId, "role:", req.role);
     next();
-  } catch (e) {
-    // console.log(e);
-    res.status(500).json({ message: "Woops! Must be that spaghetti code" });
+  } catch (e: any) {
+    const isAuthError =
+      e?.name === "TokenExpiredError" || e?.name === "JsonWebTokenError";
+    res.status(isAuthError ? 401 : 500).json({
+      error: isAuthError ? "Invalid or expired token" : "Internal Server Error",
+    });
   }
 };
 

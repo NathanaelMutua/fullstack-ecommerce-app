@@ -1,7 +1,7 @@
 import express, { urlencoded } from "express";
-import productRouter from "./routes/products/productRouter.js";
-import authRouter from "./routes/authentication/authRouter.js";
-import ordersRouter from "./routes/orders/ordersRouter.js";
+import productRouter from "./routes/products/productRouter";
+import authRouter from "./routes/authentication/authRouter";
+import ordersRouter from "./routes/orders/ordersRouter";
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use("/api/products", productRouter);
 // order router
 app.use("/api/orders", ordersRouter);
 
-const port = process.env.PORT || 3000; // uses switch case to 3000 if environment variable is not set
+const port = 3000;
 
 app.listen(port, () => {
   console.log(`E-commerce App is listening on port ${port}`);

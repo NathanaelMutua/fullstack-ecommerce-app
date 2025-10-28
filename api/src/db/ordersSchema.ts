@@ -8,6 +8,7 @@ import {
 import { usersTable } from "./usersSchema";
 import { productsTable } from "./productsSchema";
 import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
 export const ordersTable = pgTable("orders", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -32,14 +33,21 @@ export const orderItemsTable = pgTable("order_items", {
 });
 
 export const InsertOrderSchema = createInsertSchema(ordersTable).omit({
-  id: true,
   userId: true,
   status: true,
   createdAt: true,
 });
 
-export const insertOrderWithItemsSchema = createInsertSchema(
-  ordersTable
-).extend({
-  items: createInsertSchema(orderItemsTable).array(),
+export const insertOrderItemsSchema = createInsertSchema(orderItemsTable)
+  .omit({
+    orderId: true,
+  })
+  .extend({
+    quantity: z.number().int().positive(),
+    price: z.number().positive(),
+  });
+
+export const insertOrderWithItemsSchema = z.object({
+  order: InsertOrderSchema,
+  items: z.array(insertOrderItemsSchema).min(1),
 });
