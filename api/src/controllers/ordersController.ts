@@ -113,3 +113,26 @@ export async function getOrder(req: Request, res: Response) {
     });
   }
 }
+
+export async function updateOrder(req: Request, res: Response) {
+  try {
+    const id = parseInt(req.params.id);
+
+    const [updateOrder] = await db
+      .update(ordersTable)
+      .set(req.body)
+      .where(eq(ordersTable.id, id))
+      .returning();
+
+    if (!updateOrder) {
+      return res.status(404).json({ error: "Order not found" });
+    } else {
+      return res.status(200).json({ message: "Order updated", updateOrder });
+    }
+  } catch (e: any) {
+    return res.status(500).json({
+      error: "Whoops! Must be that spaghetti code",
+      message: e?.message,
+    });
+  }
+}
