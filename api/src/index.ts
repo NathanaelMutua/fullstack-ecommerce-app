@@ -1,7 +1,7 @@
 import express, { urlencoded } from "express";
-import productRouter from "./routes/products/productRouter";
-import authRouter from "./routes/authentication/authRouter";
-import ordersRouter from "./routes/orders/ordersRouter";
+import productRouter from "./routes/products/productRouter.js";
+import authRouter from "./routes/authentication/authRouter.js";
+import ordersRouter from "./routes/orders/ordersRouter.js";
 
 const app = express();
 

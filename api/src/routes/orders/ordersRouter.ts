@@ -1,16 +1,16 @@
 import { Router } from "express";
-import { validateData } from "../../middlewares/validationMiddleware";
+import { validateData } from "../../middlewares/validationMiddleware.js";
 import {
   insertOrderWithItemsSchema,
   updateOrderSchema,
 } from "../../db/ordersSchema";
-import { verifyToken } from "../../middlewares/authMiddleware";
+import { verifyToken } from "../../middlewares/authMiddleware.js";
 import {
   createOrder,
   getOrder,
   listOrders,
   updateOrder,
-} from "../../controllers/ordersController";
+} from "../../controllers/ordersController.js";
 
 const ordersRouter = Router();
 

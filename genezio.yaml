@@ -6,7 +6,7 @@ services:
     - name: my-postgres-db
       type: postgres-neon
 backend:
-  path: api
+  path: ./api
   language:
     name: js
     runtime: nodejs20.x
