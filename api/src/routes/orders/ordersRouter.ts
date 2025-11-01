@@ -3,7 +3,7 @@ import { validateData } from "../../middlewares/validationMiddleware.js";
 import {
   insertOrderWithItemsSchema,
   updateOrderSchema,
-} from "../../db/ordersSchema";
+} from "../../db/ordersSchema.js";
 import { verifyToken } from "../../middlewares/authMiddleware.js";
 import {
   createOrder,
