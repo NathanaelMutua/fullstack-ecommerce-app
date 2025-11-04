@@ -1,20 +1,20 @@
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList, useWindowDimensions } from "react-native";
 import products from "../assets/products.json";
 import ProductItem from "../components/ProductItem";
-import { Button, ButtonText } from "@/components/ui/button";
 
 export default function HomeScreen() {
+  const { width } = useWindowDimensions();
+
   return (
-    <Button>
-      <ButtonText>Click me</ButtonText>
-    </Button>
+    <View className="flex-1">
+      <FlatList
+        data={products}
+        numColumns={width > 700 ? 3 : 2}
+        className=""
+        contentContainerClassName="gap-2 max-w-[960px] w-full mx-auto" // added spacing between rows and limited spread
+        columnWrapperClassName="gap-2" // added spacing between columns
+        renderItem={({ item }) => <ProductItem product={item} />}
+      />
+    </View>
   );
-  // return (
-  //   <View>
-  //     <FlatList
-  //       data={products}
-  //       renderItem={({ item }) => <ProductItem product={item} />}
-  //     />
-  //   </View>
-  // );
 }
