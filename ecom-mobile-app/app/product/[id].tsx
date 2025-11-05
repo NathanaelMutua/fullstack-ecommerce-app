@@ -8,6 +8,7 @@ import { Heading } from "@/components/ui/heading";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonText } from "@/components/ui/button";
 import { ScrollView } from "react-native";
+import { Stack } from "expo-router";
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams();
@@ -19,6 +20,7 @@ export default function ProductDetailsScreen() {
   }
   return (
     <Box className="flex-1 items-center p-3">
+      <Stack.Screen options={{ title: product.name }} />
       <ScrollView
         className="flex-1 w-full"
         contentContainerClassName="max-w-[960px] w-full mx-auto"

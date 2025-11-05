@@ -14,8 +14,6 @@ interface Product {
 }
 
 function ProductItem({ product }: { product: Product }) {
-  const router = useRouter();
-
   return (
     <Link href={`/product/${product.id}`} asChild>
       <Pressable className="flex-1">

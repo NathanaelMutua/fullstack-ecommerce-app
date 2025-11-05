@@ -8,9 +8,8 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <GluestackUIProvider>
         <Stack>
-          <Stack.Screen name="index" options={{ title: "Home" }} />
+          <Stack.Screen name="index" options={{ title: "Shop" }} />
           <Stack.Screen name="cart" options={{ title: "Cart" }} />
-          <Stack.Screen name="product/[id]" options={{ title: "product" }} />
         </Stack>
       </GluestackUIProvider>
     </SafeAreaProvider>
