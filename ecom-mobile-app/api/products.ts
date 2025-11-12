@@ -8,3 +8,12 @@ export async function listProducts() {
   }
   return data;
 }
+
+export async function getProductById(id: number) {
+  const res = await fetch(`${API_URL}/api/products/${id}`);
+  const data = await res.json;
+  if (!res.ok) {
+    throw new Error("Error");
+  }
+  return data;
+}
