@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import db from "../db";
+import db from "../db/index.js";
 import { ordersTable, orderItemsTable } from "../db/ordersSchema.js";
 import { productsTable } from "../db/productsSchema.js";
-import { and, eq, inArray } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
